@@ -112,4 +112,28 @@ class DeliveryServiceTest {
                 () -> service.createDelivery(delivery)
         );
     }
+    @Test
+    void shouldCancelDeliverySuccessfully() {
+
+        service.cancelDelivery(1);
+
+        Delivery delivery = service.findDelivery(1).orElseThrow();
+
+        assertEquals(
+                DeliveryStatus.CANCELLED,
+                delivery.getStatus()
+        );
+    }
+
+    @Test
+    void shouldRejectCancellationAfterShipment() {
+
+        service.changeStatus(1, DeliveryStatus.ACCEPTED);
+        service.changeStatus(1, DeliveryStatus.IN_TRANSIT);
+
+        assertThrows(
+                IllegalStateException.class,
+                () -> service.cancelDelivery(1)
+        );
+    }
 }

@@ -81,6 +81,9 @@ public class DeliveryService {
     }
 
 
+    public void cancelDelivery(int deliveryId) {
+        changeStatus(deliveryId, DeliveryStatus.CANCELLED);
+    }
     public Optional<Delivery> findDelivery(int id) {
         return repository.findById(id);
     }
