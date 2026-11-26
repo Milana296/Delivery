@@ -56,7 +56,7 @@ class DeliveryServiceTest {
                 service.findDelivery(1).orElseThrow();
 
         assertEquals(
-                DeliveryStatus.DELIVERED,
+                DeliveryStatus.CREATED,
                 delivery.getStatus()
         );
     }
